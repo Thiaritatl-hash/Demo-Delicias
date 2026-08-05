@@ -310,8 +310,7 @@
     </div>
 
     <header>
-        <!-- Aca se busca el logo subido a GitHub con el nombre logo.jpg -->
-        <img src="logo.jpg" alt="Delicias Australes Logo" class="logo-img" id="main-logo">
+        <img src="IMG-20260805-WA0018.jpg" alt="Delicias Australes Logo" class="logo-img" id="main-logo">
         <h1>Delicias Australes</h1>
         <p>Pastelería Artesanal & Eventos</p>
     </header>
@@ -500,4 +499,153 @@
     <!-- ENTREGA Y FECHA -->
     <div class="card">
         <h2>Detalles de la Entrega</h2>
-        <label for="date">Fecha Requerida (Mínimo 48hs 
+        <label for="date">Fecha Requerida (Mínimo 48hs de anticipación):</label>
+        <input type="date" id="date">
+
+        <label for="delivery">Modalidad de Entrega:</label>
+        <select id="delivery">
+            <option value="Retiro en Taller">Retiro en Taller (Gratis)</option>
+            <option value="Envío Zona Sur">Envío Zona Sur</option>
+            <option value="Envío Zona Norte">Envío Zona Norte</option>
+        </select>
+    </div>
+
+    <!-- CARRITO FLOTANTE -->
+    <div class="cart-bar">
+        <div class="cart-items-list" id="cart-list">
+            <i style="color:#aaa;">Tu carrito está vacío. Agregá productos arriba.</i>
+        </div>
+        <div class="cart-summary">
+            <div>
+                <span>Total Estimado:</span>
+                <strong id="total-price" style="display:block; font-size:1.1rem; color:#fff;">$0</strong>
+            </div>
+            <div style="text-align: right;">
+                <span style="color:var(--accent-teal);">Seña 20% requerida:</span>
+                <strong id="deposit-price" style="display:block; font-size:1.1rem; color:var(--primary-pink);">$0</strong>
+            </div>
+        </div>
+        <button class="btn-whatsapp" onclick="sendWhatsApp()">
+            📲 Confirmar Pedido con Sol por WhatsApp
+        </button>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('side-menu').classList.toggle('active');
+            document.getElementById('menu-overlay').classList.toggle('active');
+        }
+
+        // FECHA MÍNIMA 48hs
+        const dateInput = document.getElementById('date');
+        if (dateInput) {
+            const minDate = new Date();
+            minDate.setDate(minDate.getDate() + 2);
+            dateInput.min = minDate.toISOString().split('T')[0];
+            dateInput.value = minDate.toISOString().split('T')[0];
+        }
+
+        let cart = [];
+
+        function showCategory(catName) {
+            const sections = document.querySelectorAll('.category-section');
+            sections.forEach(s => {
+                s.classList.remove('active');
+                s.style.display = 'none';
+            });
+
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+
+            const targetSection = document.getElementById('cat-' + catName);
+            const targetBtn = document.getElementById('btn-' + catName);
+
+            if (targetSection) {
+                targetSection.classList.add('active');
+                targetSection.style.display = 'block';
+            }
+            if (targetBtn) {
+                targetBtn.classList.add('active');
+            }
+        }
+
+        function addItem(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+
+        function addSelectedTarta() {
+            const select = document.getElementById('tarta-select');
+            if (!select) return;
+            const selectedOption = select.options[select.selectedIndex];
+            const name = selectedOption.getAttribute('data-name');
+            const price = parseInt(select.value);
+            cart.push({ name, price });
+            updateCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById('cart-list');
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartList.innerHTML = '<i style="color:#aaa;">Tu carrito está vacío. Agregá productos arriba.</i>';
+                document.getElementById('total-price').innerText = '$0';
+                document.getElementById('deposit-price').innerText = '$0';
+                return;
+            }
+
+            cartList.innerHTML = '';
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartList.innerHTML += `
+                    <div class="cart-item-single">
+                        <span>• ${item.name} ($${item.price.toLocaleString('es-AR')})</span>
+                        <span class="remove-btn" onclick="removeItem(${index})">✕</span>
+                    </div>
+                `;
+            });
+
+            const deposit = total * 0.20;
+            document.getElementById('total-price').innerText = `$${total.toLocaleString('es-AR')}`;
+            document.getElementById('deposit-price').innerText = `$${deposit.toLocaleString('es-AR')}`;
+        }
+
+        function sendWhatsApp() {
+            if (cart.length === 0) {
+                alert("Por favor agregá al menos un producto al carrito antes de enviar.");
+                return;
+            }
+
+            const phoneNumber = "5492974219406";
+            const dateVal = document.getElementById('date').value;
+            const deliveryVal = document.getElementById('delivery').value;
+
+            let itemsText = "";
+            let total = 0;
+
+            cart.forEach((item) => {
+                itemsText += `• ${item.name} - $${item.price.toLocaleString('es-AR')}%0A`;
+                total += item.price;
+            });
+
+            const deposit = total * 0.20;
+
+            const text = `¡Hola *Delicias Australes*! 👋 Quisiera hacer el siguiente pedido:%0A%0A` +
+                         `📋 *DETALLE DEL PEDIDO:*%0A${itemsText}%0A` +
+                         `📅 *Fecha requerida:* ${dateVal} (Anticipación 48hs)%0A` +
+                         `🚚 *Modalidad:* ${deliveryVal}%0A%0A` +
+                         `💵 *Total Pedido:* $${total.toLocaleString('es-AR')}%0A` +
+                         `📌 *Seña a transferir (20%):* $${deposit.toLocaleString('es-AR')}%0A%0A` +
+                         `¿Me confirman si tienen disponibilidad en la agenda? Gracias!`;
+
+            window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
