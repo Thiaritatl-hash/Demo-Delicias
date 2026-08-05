@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delicias Australes - Configura tu Torta</title>
+    <style>
+        :root {
+            --primary: #e88ca5;
+            --primary-dark: #d46b86;
+            --bg: #fff9fa;
+            --card-bg: #ffffff;
+            --text: #4a3b40;
+            --accent: #f8e1e7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+        }
+
+        header p {
+            font-size: 0.9rem;
+            color: #7a686d;
+        }
+
+        .step-card {
+            background: var(--card-bg);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(232, 140, 165, 0.12);
+            border: 1px solid #f3dbe1;
+        }
+
+        .step-card h2 {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        select, input[type="date"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0c8ce;
+            border-radius: 10px;
+            background: #fff;
+            color: var(--text);
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg);
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-item input {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+        }
+
+        .summary-card {
+            background: #4a3b40;
+            color: #fff;
+            padding: 20px;
+            border-radius: 16px;
+            margin-top: 20px;
+        }
+
+        .summary-card h2 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .price-row.total {
+            border-top: 1px solid #6b555c;
+            padding-top: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .btn-whatsapp {
+            width: 100%;
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:active {
+            transform: scale(0.98);
+        }
+
+        .notice {
+            font-size: 0.75rem;
+            color: #d1c4c7;
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>🎂 Delicias Australes</h1>
+        <p>Configurá tu torta personalizada en 1 minuto</p>
+    </header>
+
+    <!-- Paso 1: Base -->
+    <div class="step-card">
+        <h2>1. Elegí el Tamaño y Bizcochuelo</h2>
+        <label for="size">Tamaño de Torta:</label>
+        <select id="size" onchange="calculateTotal()">
+            <option value="12000" data-name="Chica (1.5 kg / ~8 porciones)">Chica (1.5 kg / ~8 porciones) - $12.000</option>
+            <option value="18000" data-name="Mediana (2.5 kg / ~15 porciones)" selected>Mediana (2.5 kg / ~15 porciones) - $18.000</option>
+            <option value="25000" data-name="Grande (3.5 kg / ~25 porciones)">Grande (3.5 kg / ~25 porciones) - $25.000</option>
+        </select>
+
+        <label for="cake-base" style="margin-top: 12px;">Sabor del Bizcochuelo:</label>
+        <select id="cake-base">
+            <option value="Vainilla Tradicional">Vainilla Tradicional</option>
+            <option value="Chocolate Intenso">Chocolate Intenso</option>
+            <option value="Red Velvet">Red Velvet</option>
+        </select>
+    </div>
+
+    <!-- Paso 2: Rellenos y Adicionales -->
+    <div class="step-card">
+        <h2>2. Rellenos y Adicionales</h2>
+        <label>Elegí tus Rellenos (Hasta 2 incluidos):</label>
+        <select id="filling1">
+            <option value="Dulce de Leche Repostero">Dulce de Leche Repostero</option>
+            <option value="Crema Bariloche">Crema Bariloche</option>
+            <option value="Crema Chantilly">Crema Chantilly</option>
+        </select>
+        
+        <select id="filling2" style="margin-top: 8px;">
+            <option value="Sin segundo relleno">Sin segundo relleno</option>
+            <option value="Crema Bariloche">Crema Bariloche</option>
+            <option value="Frutos Rojos">Frutos Rojos</option>
+            <option value="Tramontana">Tramontana</option>
+        </select>
+
+        <label style="margin-top: 15px;">Adicionales Especiales:</label>
+        <div class="checkbox-group">
+            <div class="checkbox-item">
+                <span>Chocolatines y Golosinas (+$1.500)</span>
+                <input type="checkbox" value="1500" data-name="Golosinas" class="extra-item" onchange="calculateTotal()">
+            </div>
+            <div class="checkbox-item">
+                <span>Flores Naturales (+$2.500)</span>
+                <input type="checkbox" value="2500" data-name="Flores Naturales" class="extra-item" onchange="calculateTotal()">
+            </div>
+            <div class="checkbox-item">
+                <span>Topper Personalizado Nombre/Edad (+$1.000)</span>
+                <input type="checkbox" value="1000" data-name="Topper Personalizado" class="extra-item" onchange="calculateTotal()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Paso 3: Entrega y Fecha -->
+    <div class="step-card">
+        <h2>3. Fecha y Modalidad de Entrega</h2>
+        <label for="date">Fecha de Retiro/Entrega (Mínimo 48 hs):</label>
+        <input type="date" id="date">
+
+        <label for="delivery" style="margin-top: 12px;">Modalidad:</label>
+        <select id="delivery">
+            <option value="Retiro en taller">Retiro en Taller (Gratis)</option>
+            <option value="Envío a domicilio">Envío a Domicilio (A coordinar costo por zona)</option>
+        </select>
+    </div>
+
+    <!-- Resumen y Enviar a WhatsApp -->
+    <div class="summary-card">
+        <h2>Resumen del Pedido</h2>
+        <div class="price-row">
+            <span>Total del Pedido:</span>
+            <span id="total-price">$18.000</span>
+        </div>
+        <div class="price-row">
+            <span>Seña para reservar (50%):</span>
+            <span id="deposit-price">$9.000</span>
+        </div>
+        <div class="price-row total">
+            <span>Saldo a la entrega:</span>
+            <span id="remaining-price">$9.000</span>
+        </div>
+
+        <button class="btn-whatsapp" onclick="sendWhatsApp()">
+            📲 Confirmar y Pedir por WhatsApp
+        </button>
+
+        <p class="notice">⚠️ Reserva válida por 24 hs al enviar el comprobante de la seña. Fotos de referencia se envían por la charla.</p>
+    </div>
+
+    <script>
+        // Configurar la fecha mínima (48 hs en el futuro)
+        const dateInput = document.getElementById('date');
+        const minDate = new Date();
+        minDate.setDate(minDate.getDate() + 2);
+        dateInput.min = minDate.toISOString().split('T')[0];
+        dateInput.value = minDate.toISOString().split('T')[0];
+
+        function calculateTotal() {
+            const sizeSelect = document.getElementById('size');
+            let basePrice = parseInt(sizeSelect.value);
+
+            let extrasPrice = 0;
+            const checkboxes = document.querySelectorAll('.extra-item:checked');
+            checkboxes.forEach(cb => {
+                extrasPrice += parseInt(cb.value);
+            });
+
+            const total = basePrice + extrasPrice;
+            const deposit = total * 0.5;
+
+            document.getElementById('total-price').innerText = `$${total.toLocaleString('es-AR')}`;
+            document.getElementById('deposit-price').innerText = `$${deposit.toLocaleString('es-AR')}`;
+            document.getElementById('remaining-price').innerText = `$${deposit.toLocaleString('es-AR')}`;
+        }
+
+        function sendWhatsApp() {
+            // Cambiar por el teléfono real de la dueña (ej: 5491123456789)
+            const phoneNumber = "5491100000000"; 
+
+            const sizeText = document.getElementById('size').options[document.getElementById('size').selectedIndex].getAttribute('data-name');
+            const cakeBase = document.getElementById('cake-base').value;
+            const f1 = document.getElementById('filling1').value;
+            const f2 = document.getElementById('filling2').value;
+            const dateVal = document.getElementById('date').value;
+            const deliveryVal = document.getElementById('delivery').value;
+
+            let extras = [];
+            document.querySelectorAll('.extra-item:checked').forEach(cb => {
+                extras.push(cb.getAttribute('data-name'));
+            });
+            const extrasText = extras.length > 0 ? extras.join(', ') : 'Ninguno';
+
+            const total = document.getElementById('total-price').innerText;
+            const deposit = document.getElementById('deposit-price').innerText;
+
+            const text = `¡Hola *Delicias Australes*! 👋 Quisiera encargar la siguiente torta:%0A%0A` +
+                         `🎂 *Tamaño:* ${sizeText}%0A` +
+                         `🍰 *Bizcochuelo:* ${cakeBase}%0A` +
+                         `🍫 *Rellenos:* ${f1} / ${f2}%0A` +
+                         `✨ *Adicionales:* ${extrasText}%0A` +
+                         `📅 *Fecha requerida:* ${dateVal}%0A` +
+                         `🚚 *Entrega:* ${deliveryVal}%0A%0A` +
+                         `💵 *Total:* ${total}%0A` +
+                         `📌 *Seña a transferir (50%):* ${deposit}%0A%0A` +
+                         `¿Me confirman si tienen disponibilidad en agenda y me pasan el Alias? Gracias!`;
+
+            window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
+        }
+
+        // Ejecutar cálculo inicial
+        calculateTotal();
+    </script>
+</body>
+</html>
