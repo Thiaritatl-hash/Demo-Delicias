@@ -12,7 +12,6 @@
             --card-bg: #ffffff;
             --text: #4a3b40;
             --accent: #f8e1e7;
-            --badge: #fff0f3;
         }
 
         * {
@@ -79,12 +78,13 @@
             box-shadow: 0 2px 8px rgba(232, 140, 165, 0.4);
         }
 
+        /* Secciones */
         .category-section {
             display: none;
         }
 
         .category-section.active {
-            display: block;
+            display: block !important;
         }
 
         .card {
@@ -111,7 +111,7 @@
             border-radius: 10px;
             border: 1px solid #f8c8d4;
             display: inline-block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         label {
@@ -265,23 +265,23 @@
 
     <!-- Navegación -->
     <div class="categories-nav">
-        <button class="cat-btn active" onclick="switchCategory('sugerencias', this)">⭐ Recomendaciones</button>
-        <button class="cat-btn" onclick="switchCategory('tortas', this)">🎂 Tortas</button>
-        <button class="cat-btn" onclick="switchCategory('boxes', this)">🎁 Boxes Personalizados</button>
-        <button class="cat-btn" onclick="switchCategory('tartas', this)">🥧 Tartas</button>
-        <button class="cat-btn" onclick="switchCategory('mesadulce', this)">🧁 Mesa Dulce</button>
+        <button class="cat-btn active" id="btn-sugerencias" onclick="showCategory('sugerencias')">⭐ Recomendaciones</button>
+        <button class="cat-btn" id="btn-boxes" onclick="showCategory('boxes')">🎁 Boxes Personalizados</button>
+        <button class="cat-btn" id="btn-tortas" onclick="showCategory('tortas')">🎂 Tortas</button>
+        <button class="cat-btn" id="btn-tartas" onclick="showCategory('tartas')">🥧 Tartas</button>
+        <button class="cat-btn" id="btn-mesadulce" onclick="showCategory('mesadulce')">🧁 Mesa Dulce</button>
     </div>
 
     <!-- 🌟 CATEGORÍA: SUGERENCIAS DE DELICIAS -->
     <div id="cat-sugerencias" class="category-section active">
         <div class="card">
-            <span class="badge-delicias">⭐ Lo más vendido de Delicias</span>
+            <span class="badge-delicias">⭐ Lo más vendido</span>
             <h2>Especialidades de la Casa</h2>
             
             <div class="item-row">
                 <div class="item-info">
                     <h4>Torta Signature Delicias</h4>
-                    <p>Bizcochuelo húmedo de chocolate, relleno de dulce de leche repostero y crema bariloche con trozos de golosinas.</p>
+                    <p>Bizcochuelo de chocolate, relleno de dulce de leche y crema bariloche con golosinas.</p>
                     <div class="item-price">$19.500</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Torta Signature Delicias', 19500)">+ Agregar</button>
@@ -290,19 +290,10 @@
             <div class="item-row">
                 <div class="item-info">
                     <h4>Combo Merienda Completa</h4>
-                    <p>1 Tarta chica a elección + 6 Alfajorcitos de Maicena + 2 Cupcakes decorados.</p>
+                    <p>1 Tarta chica a elección + 6 Alfajorcitos + 2 Cupcakes decorados.</p>
                     <div class="item-price">$14.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Combo Merienda Completa', 14000)">+ Agregar</button>
-            </div>
-
-            <div class="item-row">
-                <div class="item-info">
-                    <h4>Box Degustación Especial</h4>
-                    <p>4 minicakes variadas seleccionadas por el chef pastelero.</p>
-                    <div class="item-price">$11.000</div>
-                </div>
-                <button class="btn-add" onclick="addItem('Box Degustación Especial', 11000)">+ Agregar</button>
             </div>
         </div>
     </div>
@@ -311,8 +302,6 @@
     <div id="cat-boxes" class="category-section">
         <div class="card">
             <h2>Armá tu Box a Gusto</h2>
-            <p style="font-size:0.8rem; color:#7a686d; margin-bottom:10px;">Elegí el tipo de box y personalizá los detalles:</p>
-
             <label>Tipo de Box:</label>
             <select id="box-type">
                 <option value="9500" data-name="Box Cumpleañera">Box Cumpleañera - $9.500</option>
@@ -320,14 +309,14 @@
                 <option value="12000" data-name="Box Premium Aniversario">Box Premium Aniversario - $12.000</option>
             </select>
 
-            <label>Sabores / Elegí qué querés incluir:</label>
-            <textarea id="box-details" placeholder="Ej: Preferencia de cupcakes de chocolate, alfajores de maicena, sin frutos secos..."></textarea>
+            <label>Sabores / ¿Qué querés incluir?</label>
+            <textarea id="box-details" placeholder="Ej: Cupcakes de chocolate, alfajores de maicena..."></textarea>
 
-            <label>Tarjeta con dedicatoria (Opcional):</label>
-            <input type="text" id="box-card-text" placeholder="Ej: ¡Feliz cumple Mamá! Te queremos mucho.">
+            <label>Dedicatoria para tarjeta (Opcional):</label>
+            <input type="text" id="box-card-text" placeholder="Ej: ¡Feliz cumple Mamá!">
 
             <button class="btn-add" style="width:100%; padding: 10px;" onclick="addCustomBox()">
-                ➕ Agregar Box Personalizada al Carrito
+                ➕ Agregar Box al Carrito
             </button>
         </div>
     </div>
@@ -351,20 +340,15 @@
                 <option value="Red Velvet">Red Velvet</option>
             </select>
 
-            <label>Rellenos:</label>
+            <label>Relleno Principal:</label>
             <select id="custom-f1">
                 <option value="Dulce de Leche Repostero">Dulce de Leche Repostero</option>
                 <option value="Crema Bariloche">Crema Bariloche</option>
                 <option value="Crema Chantilly">Crema Chantilly</option>
             </select>
-            <select id="custom-f2" style="margin-top: 6px;">
-                <option value="Sin 2do relleno">Sin 2do relleno</option>
-                <option value="Crema Bariloche">Crema Bariloche</option>
-                <option value="Frutos Rojos">Frutos Rojos</option>
-            </select>
 
-            <label style="margin-top:8px;">Temática / Nombre para la Torta:</label>
-            <input type="text" id="cake-theme" placeholder="Ej: Temática Princesas / Nombre: Sofía (5 años)">
+            <label>Temática / Nombre:</label>
+            <input type="text" id="cake-theme" placeholder="Ej: Princesas / Nombre: Sofía">
 
             <button class="btn-add" style="width:100%; padding: 10px;" onclick="addCustomCake()">
                 ➕ Agregar Torta al Carrito
@@ -379,7 +363,7 @@
             <div class="item-row">
                 <div class="item-info">
                     <h4>Lemon Pie Clásico</h4>
-                    <p>Masa sablée, cremoso de limón y merengue italiano</p>
+                    <p>Masa sablée, cremoso de limón y merengue</p>
                     <div class="item-price">$11.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Lemon Pie Clásico', 11000)">+ Agregar</button>
@@ -391,14 +375,6 @@
                     <div class="item-price">$14.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Marquise de Chocolate', 14000)">+ Agregar</button>
-            </div>
-            <div class="item-row">
-                <div class="item-info">
-                    <h4>Cheesecake Frutos Rojos</h4>
-                    <p>Estilo horneado con salsa casera</p>
-                    <div class="item-price">$13.500</div>
-                </div>
-                <button class="btn-add" onclick="addItem('Cheesecake Frutos Rojos', 13500)">+ Agregar</button>
             </div>
         </div>
     </div>
@@ -422,14 +398,6 @@
                     <div class="item-price">$11.500</div>
                 </div>
                 <button class="btn-add" onclick="addItem('12x Mini Tartitas Variadas', 11500)">+ Agregar</button>
-            </div>
-            <div class="item-row">
-                <div class="item-info">
-                    <h4>12x Macarons Especiales</h4>
-                    <p>Chocolate, Frutilla, Pistacho</p>
-                    <div class="item-price">$9.000</div>
-                </div>
-                <button class="btn-add" onclick="addItem('12x Macarons Especiales', 9000)">+ Agregar</button>
             </div>
         </div>
     </div>
@@ -476,11 +444,29 @@
 
         let cart = [];
 
-        function switchCategory(catId, btnElement) {
-            document.querySelectorAll('.category-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('cat-' + catId).classList.add('active');
-            btnElement.classList.add('active');
+        function showCategory(catName) {
+            // Ocultar todas las secciones
+            var sections = document.querySelectorAll('.category-section');
+            for(var i=0; i<sections.length; i++){
+                sections[i].style.display = 'none';
+            }
+            
+            // Quitar clase active a todos los botones
+            var buttons = document.querySelectorAll('.cat-btn');
+            for(var j=0; j<buttons.length; j++){
+                buttons[j].classList.remove('active');
+            }
+
+            // Mostrar la seleccionada
+            var targetSection = document.getElementById('cat-' + catName);
+            if(targetSection) {
+                targetSection.style.display = 'block';
+            }
+            
+            var targetBtn = document.getElementById('btn-' + catName);
+            if(targetBtn) {
+                targetBtn.classList.add('active');
+            }
         }
 
         function addItem(name, price) {
@@ -501,7 +487,7 @@
 
             cart.push({ name: fullDesc, price: price });
             updateCart();
-            alert('🎁 ¡Box personalizada agregada!');
+            alert('🎁 ¡Box agregada!');
         }
 
         function addCustomCake() {
@@ -510,15 +496,14 @@
             const price = parseInt(sizeSelect.value);
             const base = document.getElementById('custom-base').value;
             const f1 = document.getElementById('custom-f1').value;
-            const f2 = document.getElementById('custom-f2').value;
             const theme = document.getElementById('cake-theme').value;
 
-            let fullName = `${sizeName} (${base} | ${f1} / ${f2})`;
+            let fullName = `${sizeName} (${base} | ${f1})`;
             if(theme) fullName += ` [Temática: ${theme}]`;
 
             cart.push({ name: fullName, price: price });
             updateCart();
-            alert('🎂 ¡Torta personalizada agregada!');
+            alert('🎂 ¡Torta agregada!');
         }
 
         function removeItem(index) {
@@ -564,4 +549,25 @@
             const deliveryVal = document.getElementById('delivery').value;
 
             let itemsText = "";
-   
+            let total = 0;
+
+            cart.forEach((item) => {
+                itemsText += `• ${item.name} - $${item.price.toLocaleString('es-AR')}%0A`;
+                total += item.price;
+            });
+
+            const deposit = total * 0.5;
+
+            const text = `¡Hola *Delicias Australes*! 👋 Quisiera hacer el siguiente pedido:%0A%0A` +
+                         `📋 *DETALLE DEL PEDIDO:*%0A${itemsText}%0A` +
+                         `📅 *Fecha requerida:* ${dateVal}%0A` +
+                         `🚚 *Modalidad:* ${deliveryVal}%0A%0A` +
+                         `💵 *Total Pedido:* $${total.toLocaleString('es-AR')}%0A` +
+                         `📌 *Seña a transferir (50%):* $${deposit.toLocaleString('es-AR')}%0A%0A` +
+                         `¿Me confirman disponibilidad? Gracias!`;
+
+            window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
