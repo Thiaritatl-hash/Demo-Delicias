@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delicias Australes - Configura tu Torta</title>
+    <title>Delicias Australes - Pastelería Artesanal</title>
     <style>
         :root {
             --primary: #e88ca5;
@@ -12,6 +12,7 @@
             --card-bg: #ffffff;
             --text: #4a3b40;
             --accent: #f8e1e7;
+            --badge: #fff0f3;
         }
 
         * {
@@ -27,11 +28,12 @@
             padding: 15px;
             max-width: 500px;
             margin: 0 auto;
+            padding-bottom: 140px;
         }
 
         header {
             text-align: center;
-            padding: 20px 0;
+            padding: 15px 0;
         }
 
         header h1 {
@@ -40,99 +42,180 @@
         }
 
         header p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #7a686d;
         }
 
-        .step-card {
+        /* Pestañas de Categorías */
+        .categories-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 15px;
+            scrollbar-width: none;
+        }
+
+        .categories-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cat-btn {
+            background: #fff;
+            border: 1px solid #f0cad4;
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .cat-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 2px 8px rgba(232, 140, 165, 0.4);
+        }
+
+        .category-section {
+            display: none;
+        }
+
+        .category-section.active {
+            display: block;
+        }
+
+        .card {
             background: var(--card-bg);
-            padding: 18px;
+            padding: 16px;
             border-radius: 16px;
             margin-bottom: 15px;
-            box-shadow: 0 4px 12px rgba(232, 140, 165, 0.12);
+            box-shadow: 0 4px 12px rgba(232, 140, 165, 0.1);
             border: 1px solid #f3dbe1;
         }
 
-        .step-card h2 {
+        .card h2 {
             font-size: 1.1rem;
             color: var(--primary-dark);
             margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        }
+
+        .badge-delicias {
+            background: #fff0f3;
+            color: var(--primary-dark);
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 10px;
+            border: 1px solid #f8c8d4;
+            display: inline-block;
+            margin-bottom: 4px;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
-        select, input[type="date"] {
+        select, input[type="date"], input[type="text"], textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #e0c8ce;
             border-radius: 10px;
             background: #fff;
             color: var(--text);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
             outline: none;
         }
 
-        select:focus, input:focus {
-            border-color: var(--primary);
+        textarea {
+            resize: none;
+            height: 65px;
         }
 
-        .checkbox-group {
+        .item-row {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
             justify-content: space-between;
-            background: var(--bg);
-            padding: 10px 14px;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f8e1e7;
+        }
+
+        .item-row:last-child {
+            border-bottom: none;
+        }
+
+        .item-info {
+            flex: 1;
+            padding-right: 10px;
+        }
+
+        .item-info h4 {
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .item-info p {
+            font-size: 0.8rem;
+            color: #8c757c;
+            margin-top: 2px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: var(--primary-dark);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .btn-add {
+            background: var(--accent);
+            color: var(--primary-dark);
+            border: none;
+            padding: 8px 12px;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
         }
 
-        .checkbox-item input {
-            accent-color: var(--primary);
-            width: 18px;
-            height: 18px;
-        }
-
-        .summary-card {
+        /* Carrito Fijo */
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 500px;
             background: #4a3b40;
             color: #fff;
-            padding: 20px;
-            border-radius: 16px;
-            margin-top: 20px;
+            padding: 15px 20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.15);
         }
 
-        .summary-card h2 {
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-        }
-
-        .price-row {
+        .cart-summary {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
+            align-items: center;
+            margin-bottom: 10px;
         }
 
-        .price-row.total {
-            border-top: 1px solid #6b555c;
-            padding-top: 10px;
-            font-weight: bold;
-            font-size: 1.1rem;
+        .cart-summary div span {
+            display: block;
+            font-size: 0.75rem;
             color: var(--accent);
+        }
+
+        .cart-summary div strong {
+            font-size: 1.2rem;
         }
 
         .btn-whatsapp {
@@ -140,28 +223,36 @@
             background: #25d366;
             color: white;
             border: none;
-            padding: 15px;
+            padding: 12px;
             border-radius: 12px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
         }
 
-        .btn-whatsapp:active {
-            transform: scale(0.98);
+        .cart-items-list {
+            max-height: 90px;
+            overflow-y: auto;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #6b555c;
+            padding-bottom: 6px;
         }
 
-        .notice {
-            font-size: 0.75rem;
-            color: #d1c4c7;
-            margin-top: 10px;
-            text-align: center;
+        .cart-item-single {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .remove-btn {
+            color: #ff9999;
+            cursor: pointer;
+            margin-left: 8px;
         }
     </style>
 </head>
@@ -169,159 +260,308 @@
 
     <header>
         <h1>🎂 Delicias Australes</h1>
-        <p>Configurá tu torta personalizada en 1 minuto</p>
+        <p>Elegí tus favoritos y armá tu pedido</p>
     </header>
 
-    <!-- Paso 1: Base -->
-    <div class="step-card">
-        <h2>1. Elegí el Tamaño y Bizcochuelo</h2>
-        <label for="size">Tamaño de Torta:</label>
-        <select id="size" onchange="calculateTotal()">
-            <option value="12000" data-name="Chica (1.5 kg / ~8 porciones)">Chica (1.5 kg / ~8 porciones) - $12.000</option>
-            <option value="18000" data-name="Mediana (2.5 kg / ~15 porciones)" selected>Mediana (2.5 kg / ~15 porciones) - $18.000</option>
-            <option value="25000" data-name="Grande (3.5 kg / ~25 porciones)">Grande (3.5 kg / ~25 porciones) - $25.000</option>
-        </select>
-
-        <label for="cake-base" style="margin-top: 12px;">Sabor del Bizcochuelo:</label>
-        <select id="cake-base">
-            <option value="Vainilla Tradicional">Vainilla Tradicional</option>
-            <option value="Chocolate Intenso">Chocolate Intenso</option>
-            <option value="Red Velvet">Red Velvet</option>
-        </select>
+    <!-- Navegación -->
+    <div class="categories-nav">
+        <button class="cat-btn active" onclick="switchCategory('sugerencias', this)">⭐ Recomendaciones</button>
+        <button class="cat-btn" onclick="switchCategory('tortas', this)">🎂 Tortas</button>
+        <button class="cat-btn" onclick="switchCategory('boxes', this)">🎁 Boxes Personalizados</button>
+        <button class="cat-btn" onclick="switchCategory('tartas', this)">🥧 Tartas</button>
+        <button class="cat-btn" onclick="switchCategory('mesadulce', this)">🧁 Mesa Dulce</button>
     </div>
 
-    <!-- Paso 2: Rellenos y Adicionales -->
-    <div class="step-card">
-        <h2>2. Rellenos y Adicionales</h2>
-        <label>Elegí tus Rellenos (Hasta 2 incluidos):</label>
-        <select id="filling1">
-            <option value="Dulce de Leche Repostero">Dulce de Leche Repostero</option>
-            <option value="Crema Bariloche">Crema Bariloche</option>
-            <option value="Crema Chantilly">Crema Chantilly</option>
-        </select>
-        
-        <select id="filling2" style="margin-top: 8px;">
-            <option value="Sin segundo relleno">Sin segundo relleno</option>
-            <option value="Crema Bariloche">Crema Bariloche</option>
-            <option value="Frutos Rojos">Frutos Rojos</option>
-            <option value="Tramontana">Tramontana</option>
-        </select>
+    <!-- 🌟 CATEGORÍA: SUGERENCIAS DE DELICIAS -->
+    <div id="cat-sugerencias" class="category-section active">
+        <div class="card">
+            <span class="badge-delicias">⭐ Lo más vendido de Delicias</span>
+            <h2>Especialidades de la Casa</h2>
+            
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Torta Signature Delicias</h4>
+                    <p>Bizcochuelo húmedo de chocolate, relleno de dulce de leche repostero y crema bariloche con trozos de golosinas.</p>
+                    <div class="item-price">$19.500</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Torta Signature Delicias', 19500)">+ Agregar</button>
+            </div>
 
-        <label style="margin-top: 15px;">Adicionales Especiales:</label>
-        <div class="checkbox-group">
-            <div class="checkbox-item">
-                <span>Chocolatines y Golosinas (+$1.500)</span>
-                <input type="checkbox" value="1500" data-name="Golosinas" class="extra-item" onchange="calculateTotal()">
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Combo Merienda Completa</h4>
+                    <p>1 Tarta chica a elección + 6 Alfajorcitos de Maicena + 2 Cupcakes decorados.</p>
+                    <div class="item-price">$14.000</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Combo Merienda Completa', 14000)">+ Agregar</button>
             </div>
-            <div class="checkbox-item">
-                <span>Flores Naturales (+$2.500)</span>
-                <input type="checkbox" value="2500" data-name="Flores Naturales" class="extra-item" onchange="calculateTotal()">
-            </div>
-            <div class="checkbox-item">
-                <span>Topper Personalizado Nombre/Edad (+$1.000)</span>
-                <input type="checkbox" value="1000" data-name="Topper Personalizado" class="extra-item" onchange="calculateTotal()">
+
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Box Degustación Especial</h4>
+                    <p>4 minicakes variadas seleccionadas por el chef pastelero.</p>
+                    <div class="item-price">$11.000</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Box Degustación Especial', 11000)">+ Agregar</button>
             </div>
         </div>
     </div>
 
-    <!-- Paso 3: Entrega y Fecha -->
-    <div class="step-card">
-        <h2>3. Fecha y Modalidad de Entrega</h2>
-        <label for="date">Fecha de Retiro/Entrega (Mínimo 48 hs):</label>
+    <!-- 🎁 CATEGORÍA: BOXES PERSONALIZADOS -->
+    <div id="cat-boxes" class="category-section">
+        <div class="card">
+            <h2>Armá tu Box a Gusto</h2>
+            <p style="font-size:0.8rem; color:#7a686d; margin-bottom:10px;">Elegí el tipo de box y personalizá los detalles:</p>
+
+            <label>Tipo de Box:</label>
+            <select id="box-type">
+                <option value="9500" data-name="Box Cumpleañera">Box Cumpleañera - $9.500</option>
+                <option value="8000" data-name="Box Merienda Dulce">Box Merienda Dulce - $8.000</option>
+                <option value="12000" data-name="Box Premium Aniversario">Box Premium Aniversario - $12.000</option>
+            </select>
+
+            <label>Sabores / Elegí qué querés incluir:</label>
+            <textarea id="box-details" placeholder="Ej: Preferencia de cupcakes de chocolate, alfajores de maicena, sin frutos secos..."></textarea>
+
+            <label>Tarjeta con dedicatoria (Opcional):</label>
+            <input type="text" id="box-card-text" placeholder="Ej: ¡Feliz cumple Mamá! Te queremos mucho.">
+
+            <button class="btn-add" style="width:100%; padding: 10px;" onclick="addCustomBox()">
+                ➕ Agregar Box Personalizada al Carrito
+            </button>
+        </div>
+    </div>
+
+    <!-- 🎂 CATEGORÍA: TORTAS -->
+    <div id="cat-tortas" class="category-section">
+        <div class="card">
+            <h2>Configurá tu Torta a Medida</h2>
+            
+            <label>Tamaño / Porciones:</label>
+            <select id="custom-size">
+                <option value="12000" data-name="Torta Chica (1.5 kg / ~8 porciones)">Chica (1.5 kg) - $12.000</option>
+                <option value="18000" data-name="Torta Mediana (2.5 kg / ~15 porciones)" selected>Mediana (2.5 kg) - $18.000</option>
+                <option value="25000" data-name="Torta Grande (3.5 kg / ~25 porciones)">Grande (3.5 kg) - $25.000</option>
+            </select>
+
+            <label>Bizcochuelo:</label>
+            <select id="custom-base">
+                <option value="Vainilla Tradicional">Vainilla Tradicional</option>
+                <option value="Chocolate Intenso">Chocolate Intenso</option>
+                <option value="Red Velvet">Red Velvet</option>
+            </select>
+
+            <label>Rellenos:</label>
+            <select id="custom-f1">
+                <option value="Dulce de Leche Repostero">Dulce de Leche Repostero</option>
+                <option value="Crema Bariloche">Crema Bariloche</option>
+                <option value="Crema Chantilly">Crema Chantilly</option>
+            </select>
+            <select id="custom-f2" style="margin-top: 6px;">
+                <option value="Sin 2do relleno">Sin 2do relleno</option>
+                <option value="Crema Bariloche">Crema Bariloche</option>
+                <option value="Frutos Rojos">Frutos Rojos</option>
+            </select>
+
+            <label style="margin-top:8px;">Temática / Nombre para la Torta:</label>
+            <input type="text" id="cake-theme" placeholder="Ej: Temática Princesas / Nombre: Sofía (5 años)">
+
+            <button class="btn-add" style="width:100%; padding: 10px;" onclick="addCustomCake()">
+                ➕ Agregar Torta al Carrito
+            </button>
+        </div>
+    </div>
+
+    <!-- 🥧 CATEGORÍA: TARTAS -->
+    <div id="cat-tartas" class="category-section">
+        <div class="card">
+            <h2>Tartas Enteras</h2>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Lemon Pie Clásico</h4>
+                    <p>Masa sablée, cremoso de limón y merengue italiano</p>
+                    <div class="item-price">$11.000</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Lemon Pie Clásico', 11000)">+ Agregar</button>
+            </div>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Marquise de Chocolate</h4>
+                    <p>Base húmeda, dulce de leche, crema y frutos rojos</p>
+                    <div class="item-price">$14.000</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Marquise de Chocolate', 14000)">+ Agregar</button>
+            </div>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Cheesecake Frutos Rojos</h4>
+                    <p>Estilo horneado con salsa casera</p>
+                    <div class="item-price">$13.500</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Cheesecake Frutos Rojos', 13500)">+ Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🧁 CATEGORÍA: MESA DULCE -->
+    <div id="cat-mesadulce" class="category-section">
+        <div class="card">
+            <h2>Mesa Dulce (Por Docena)</h2>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>12x Shots Surtidos</h4>
+                    <p>Chocotorta, Oreo y Lemon Pie en vasitos</p>
+                    <div class="item-price">$12.000</div>
+                </div>
+                <button class="btn-add" onclick="addItem('12x Shots Surtidos', 12000)">+ Agregar</button>
+            </div>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>12x Mini Tartitas Variadas</h4>
+                    <p>Mini Lemon Pie, Mini Toffi y Mini Rogel</p>
+                    <div class="item-price">$11.500</div>
+                </div>
+                <button class="btn-add" onclick="addItem('12x Mini Tartitas Variadas', 11500)">+ Agregar</button>
+            </div>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>12x Macarons Especiales</h4>
+                    <p>Chocolate, Frutilla, Pistacho</p>
+                    <div class="item-price">$9.000</div>
+                </div>
+                <button class="btn-add" onclick="addItem('12x Macarons Especiales', 9000)">+ Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Datos de Reserva -->
+    <div class="card">
+        <h2>Detalles de Entrega</h2>
+        <label for="date">Fecha de Retiro/Entrega:</label>
         <input type="date" id="date">
 
-        <label for="delivery" style="margin-top: 12px;">Modalidad:</label>
+        <label for="delivery">Modalidad:</label>
         <select id="delivery">
             <option value="Retiro en taller">Retiro en Taller (Gratis)</option>
-            <option value="Envío a domicilio">Envío a Domicilio (A coordinar costo por zona)</option>
+            <option value="Envío a domicilio">Envío a Domicilio (A coordinar costo)</option>
         </select>
     </div>
 
-    <!-- Resumen y Enviar a WhatsApp -->
-    <div class="summary-card">
-        <h2>Resumen del Pedido</h2>
-        <div class="price-row">
-            <span>Total del Pedido:</span>
-            <span id="total-price">$18.000</span>
+    <!-- Carrito -->
+    <div class="cart-bar">
+        <div class="cart-items-list" id="cart-list">
+            <i style="color:#aaa;">Tu carrito está vacío. Agregá productos arriba.</i>
         </div>
-        <div class="price-row">
-            <span>Seña para reservar (50%):</span>
-            <span id="deposit-price">$9.000</span>
+        <div class="cart-summary">
+            <div>
+                <span>Total Estimado:</span>
+                <strong id="total-price">$0</strong>
+            </div>
+            <div style="text-align: right;">
+                <span>Seña 50% para reservar:</span>
+                <strong id="deposit-price" style="color:var(--accent);">$0</strong>
+            </div>
         </div>
-        <div class="price-row total">
-            <span>Saldo a la entrega:</span>
-            <span id="remaining-price">$9.000</span>
-        </div>
-
         <button class="btn-whatsapp" onclick="sendWhatsApp()">
-            📲 Confirmar y Pedir por WhatsApp
+            📲 Confirmar Pedido por WhatsApp
         </button>
-
-        <p class="notice">⚠️ Reserva válida por 24 hs al enviar el comprobante de la seña. Fotos de referencia se envían por la charla.</p>
     </div>
 
     <script>
-        // Configurar la fecha mínima (48 hs en el futuro)
         const dateInput = document.getElementById('date');
         const minDate = new Date();
         minDate.setDate(minDate.getDate() + 2);
         dateInput.min = minDate.toISOString().split('T')[0];
         dateInput.value = minDate.toISOString().split('T')[0];
 
-        function calculateTotal() {
-            const sizeSelect = document.getElementById('size');
-            let basePrice = parseInt(sizeSelect.value);
+        let cart = [];
 
-            let extrasPrice = 0;
-            const checkboxes = document.querySelectorAll('.extra-item:checked');
-            checkboxes.forEach(cb => {
-                extrasPrice += parseInt(cb.value);
+        function switchCategory(catId, btnElement) {
+            document.querySelectorAll('.category-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('cat-' + catId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        function addItem(name, price) {
+            cart.push({ name, price });
+            updateCart();
+        }
+
+        function addCustomBox() {
+            const select = document.getElementById('box-type');
+            const boxName = select.options[select.selectedIndex].getAttribute('data-name');
+            const price = parseInt(select.value);
+            const details = document.getElementById('box-details').value;
+            const cardText = document.getElementById('box-card-text').value;
+
+            let fullDesc = boxName;
+            if(details) fullDesc += ` (Gustos: ${details})`;
+            if(cardText) fullDesc += ` [Nota: "${cardText}"]`;
+
+            cart.push({ name: fullDesc, price: price });
+            updateCart();
+            alert('🎁 ¡Box personalizada agregada!');
+        }
+
+        function addCustomCake() {
+            const sizeSelect = document.getElementById('custom-size');
+            const sizeName = sizeSelect.options[sizeSelect.selectedIndex].getAttribute('data-name');
+            const price = parseInt(sizeSelect.value);
+            const base = document.getElementById('custom-base').value;
+            const f1 = document.getElementById('custom-f1').value;
+            const f2 = document.getElementById('custom-f2').value;
+            const theme = document.getElementById('cake-theme').value;
+
+            let fullName = `${sizeName} (${base} | ${f1} / ${f2})`;
+            if(theme) fullName += ` [Temática: ${theme}]`;
+
+            cart.push({ name: fullName, price: price });
+            updateCart();
+            alert('🎂 ¡Torta personalizada agregada!');
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartList = document.getElementById('cart-list');
+            let total = 0;
+
+            if (cart.length === 0) {
+                cartList.innerHTML = '<i style="color:#aaa;">Tu carrito está vacío. Agregá productos arriba.</i>';
+                document.getElementById('total-price').innerText = '$0';
+                document.getElementById('deposit-price').innerText = '$0';
+                return;
+            }
+
+            cartList.innerHTML = '';
+            cart.forEach((item, index) => {
+                total += item.price;
+                cartList.innerHTML += `
+                    <div class="cart-item-single">
+                        <span>• ${item.name} ($${item.price.toLocaleString('es-AR')})</span>
+                        <span class="remove-btn" onclick="removeItem(${index})">✕</span>
+                    </div>
+                `;
             });
 
-            const total = basePrice + extrasPrice;
             const deposit = total * 0.5;
-
             document.getElementById('total-price').innerText = `$${total.toLocaleString('es-AR')}`;
             document.getElementById('deposit-price').innerText = `$${deposit.toLocaleString('es-AR')}`;
-            document.getElementById('remaining-price').innerText = `$${deposit.toLocaleString('es-AR')}`;
         }
 
         function sendWhatsApp() {
-            // Cambiar por el teléfono real de la dueña (ej: 5491123456789)
-            const phoneNumber = "5491100000000"; 
+            if (cart.length === 0) {
+                alert("Por favor agregá al menos un producto al carrito antes de enviar.");
+                return;
+            }
 
-            const sizeText = document.getElementById('size').options[document.getElementById('size').selectedIndex].getAttribute('data-name');
-            const cakeBase = document.getElementById('cake-base').value;
-            const f1 = document.getElementById('filling1').value;
-            const f2 = document.getElementById('filling2').value;
+            const phoneNumber = "5491100000000";
             const dateVal = document.getElementById('date').value;
             const deliveryVal = document.getElementById('delivery').value;
 
-            let extras = [];
-            document.querySelectorAll('.extra-item:checked').forEach(cb => {
-                extras.push(cb.getAttribute('data-name'));
-            });
-            const extrasText = extras.length > 0 ? extras.join(', ') : 'Ninguno';
-
-            const total = document.getElementById('total-price').innerText;
-            const deposit = document.getElementById('deposit-price').innerText;
-
-            const text = `¡Hola *Delicias Australes*! 👋 Quisiera encargar la siguiente torta:%0A%0A` +
-                         `🎂 *Tamaño:* ${sizeText}%0A` +
-                         `🍰 *Bizcochuelo:* ${cakeBase}%0A` +
-                         `🍫 *Rellenos:* ${f1} / ${f2}%0A` +
-                         `✨ *Adicionales:* ${extrasText}%0A` +
-                         `📅 *Fecha requerida:* ${dateVal}%0A` +
-                         `🚚 *Entrega:* ${deliveryVal}%0A%0A` +
-                         `💵 *Total:* ${total}%0A` +
-                         `📌 *Seña a transferir (50%):* ${deposit}%0A%0A` +
-                         `¿Me confirman si tienen disponibilidad en agenda y me pasan el Alias? Gracias!`;
-
-            window.open(`https://wa.me/${phoneNumber}?text=${text}`, '_blank');
-        }
-
-        // Ejecutar cálculo inicial
-        calculateTotal();
-    </script>
-</body>
-</html>
+            let itemsText = "";
+   
