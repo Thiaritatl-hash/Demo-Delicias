@@ -6,9 +6,9 @@
     <title>Delicias Australes - Pastelería Artesanal</title>
     <style>
         :root {
-            --primary-pink: #ff3385; /* Rosa del logo */
-            --accent-teal: #00cca3;   /* Turquesa del logo */
-            --gold-border: #e6c280;   /* Dorado del logo */
+            --primary-pink: #ff3385;
+            --accent-teal: #00cca3;
+            --gold-border: #e6c280;
             --bg-cream: #fffdf9;
             --card-bg: #ffffff;
             --text-dark: #2d2527;
@@ -32,7 +32,7 @@
             padding-bottom: 160px;
         }
 
-        /* BARRA SUPERIOR CON MENÚ ☰ */
+        /* BARRA SUPERIOR */
         .top-navbar {
             display: flex;
             align-items: center;
@@ -49,7 +49,6 @@
             padding: 6px 12px;
             border-radius: 12px;
             cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
 
         .brand-title {
@@ -124,7 +123,6 @@
             border-radius: 12px;
             border: 1px solid var(--primary-pink);
             font-size: 0.85rem;
-            color: var(--text-dark);
         }
 
         /* ENCABEZADO Y LOGO */
@@ -135,7 +133,6 @@
             border-radius: 20px;
             margin-bottom: 15px;
             border: 2px solid var(--gold-border);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
         .logo-img {
@@ -158,16 +155,13 @@
             font-weight: 600;
         }
 
-        /* NAVEGACIÓN CATEGORÍAS */
+        /* CATEGORÍAS */
         .categories-nav {
             display: flex;
             gap: 8px;
             overflow-x: auto;
             padding: 5px 0 15px;
-            scrollbar-width: none;
         }
-
-        .categories-nav::-webkit-scrollbar { display: none; }
 
         .cat-btn {
             background: #ffffff;
@@ -185,7 +179,6 @@
             background: var(--primary-pink);
             color: #ffffff;
             border-color: var(--primary-pink);
-            box-shadow: 0 4px 10px rgba(255, 51, 133, 0.3);
         }
 
         .category-section { display: none; }
@@ -196,7 +189,6 @@
             padding: 18px;
             border-radius: 18px;
             margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
             border: 1px solid var(--gold-border);
         }
 
@@ -223,23 +215,9 @@
             padding-right: 10px;
         }
 
-        .item-info h4 {
-            font-size: 0.95rem;
-            color: var(--text-dark);
-        }
-
-        .item-info p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 3px;
-        }
-
-        .item-price {
-            font-weight: 700;
-            color: var(--primary-pink);
-            font-size: 0.95rem;
-            margin-top: 4px;
-        }
+        .item-info h4 { font-size: 0.95rem; color: var(--text-dark); }
+        .item-info p { font-size: 0.8rem; color: var(--text-muted); margin-top: 3px; }
+        .item-price { font-weight: 700; color: var(--primary-pink); font-size: 0.95rem; margin-top: 4px; }
 
         .btn-add {
             background: var(--pink-soft);
@@ -252,19 +230,7 @@
             cursor: pointer;
         }
 
-        .btn-add:hover {
-            background: var(--primary-pink);
-            color: white;
-        }
-
-        label {
-            display: block;
-            margin: 10px 0 4px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--text-dark);
-        }
-
+        label { display: block; margin: 10px 0 4px; font-weight: 600; font-size: 0.85rem; }
         select, input[type="date"] {
             width: 100%;
             padding: 10px;
@@ -272,10 +238,9 @@
             border-radius: 10px;
             background: #fff;
             font-size: 0.9rem;
-            outline: none;
         }
 
-        /* CARRITO FLOTANTE */
+        /* CARRITO */
         .cart-bar {
             position: fixed;
             bottom: 0;
@@ -288,7 +253,6 @@
             padding: 16px 20px;
             border-top-left-radius: 24px;
             border-top-right-radius: 24px;
-            box-shadow: 0 -6px 20px rgba(0,0,0,0.15);
             z-index: 999;
         }
 
@@ -301,24 +265,9 @@
             padding-bottom: 8px;
         }
 
-        .cart-item-single {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-        }
-
-        .remove-btn {
-            color: #ff8080;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        .cart-summary {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
+        .cart-item-single { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .remove-btn { color: #ff8080; cursor: pointer; margin-left: 10px; }
+        .cart-summary { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
 
         .btn-whatsapp {
             width: 100%;
@@ -335,14 +284,12 @@
 </head>
 <body>
 
-    <!-- BARRA SUPERIOR -->
     <div class="top-navbar">
         <button class="hamburger-btn" onclick="toggleMenu()">☰</button>
         <span class="brand-title">Delicias Australes</span>
         <span></span>
     </div>
 
-    <!-- MENÚ LATERAL -->
     <div class="menu-overlay" id="menu-overlay" onclick="toggleMenu()"></div>
     <div class="side-menu" id="side-menu">
         <div class="menu-header">
@@ -362,14 +309,13 @@
         </div>
     </div>
 
-    <!-- ENCABEZADO Y LOGO ORIGINAL -->
     <header>
-        <img src="1000332870.jpg" alt="Delicias Australes Logo" class="logo-img">
+        <!-- Aca se busca el logo subido a GitHub con el nombre logo.jpg -->
+        <img src="logo.jpg" alt="Delicias Australes Logo" class="logo-img" id="main-logo">
         <h1>Delicias Australes</h1>
         <p>Pastelería Artesanal & Eventos</p>
     </header>
 
-    <!-- PESTAÑAS DE CATEGORÍAS -->
     <div class="categories-nav">
         <button class="cat-btn active" id="btn-desayunos" onclick="showCategory('desayunos')">☀️ Desayunos</button>
         <button class="cat-btn" id="btn-tartas" onclick="showCategory('tartas')">🥧 Tartas</button>
@@ -378,7 +324,7 @@
         <button class="cat-btn" id="btn-individuales" onclick="showCategory('individuales')">🧁 Individuales / Kilo</button>
     </div>
 
-    <!-- ☀️ CATEGORÍA: DESAYUNOS -->
+    <!-- DESAYUNOS -->
     <div id="cat-desayunos" class="category-section active">
         <div class="card">
             <h2>Desayunos Especiales</h2>
@@ -393,7 +339,7 @@
             <div class="item-row">
                 <div class="item-info">
                     <h4>Desayuno Standard</h4>
-                    <p>• 1 Mini torta brownie • 1 Mini tarta (Lemon pie o Manzana) • 3 Alfajores maicena • 1 Cupcake • 4 Panes caseros • 1 Pebete J&Q • Jugo, Yogurt, Bon o Bon e infusiones</p>
+                    <p>• 1 Mini torta brownie • 1 Mini tarta • 3 Alfajores maicena • 1 Cupcake • 4 Panes caseros • 1 Pebete J&Q • Jugo, Yogurt, Bon o Bon e infusiones</p>
                     <div class="item-price">$32.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Desayuno Standard', 32000)">+ Agregar</button>
@@ -401,7 +347,7 @@
             <div class="item-row">
                 <div class="item-info">
                     <h4>Desayuno Medium</h4>
-                    <p>• 1 Mini torta (Brownie o Torta) • 1 Mini tarta • 1 Cupcake • 4 Alfajores maicena • 3 Cookies limón • 1 Postre • 1 Pebete J&Q • 4 Scons queso • 4 Pancitos • Jugo, Yogurt, Turrón, Cereal, Bon o Bon e infusiones</p>
+                    <p>• 1 Mini torta • 1 Mini tarta • 1 Cupcake • 4 Alfajores maicena • 3 Cookies limón • 1 Postre • 1 Pebete J&Q • 4 Scons queso • 4 Pancitos • Jugo, Yogurt, Turrón, Cereal, Bon o Bon e infusiones</p>
                     <div class="item-price">$44.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Desayuno Medium', 44000)">+ Agregar</button>
@@ -409,20 +355,18 @@
         </div>
     </div>
 
-    <!-- 🥧 CATEGORÍA: TARTAS -->
+    <!-- TARTAS -->
     <div id="cat-tartas" class="category-section">
         <div class="card">
             <h2>Tartas Artesanales</h2>
             <label>Seleccioná la Tarta y Tamaño:</label>
             <select id="tarta-select">
-                <!-- Clásicas -->
                 <option value="24000" data-name="Gelatina sin Frutas (22cm)">Gelatina sin Frutas (22cm) - $24.000</option>
                 <option value="29000" data-name="Gelatina sin Frutas (28cm)">Gelatina sin Frutas (28cm) - $29.000</option>
                 <option value="24000" data-name="Yogurt con Frutilla (22cm)">Yogurt con Frutilla (22cm) - $24.000</option>
                 <option value="29000" data-name="Yogurt con Frutilla (28cm)">Yogurt con Frutilla (28cm) - $29.000</option>
                 <option value="24000" data-name="Chocolate y Crema (22cm)">Chocolate y Crema (22cm) - $24.000</option>
                 <option value="29000" data-name="Chocolate y Crema (28cm)">Chocolate y Crema (28cm) - $29.000</option>
-                <!-- Especiales -->
                 <option value="27000" data-name="Tarta Toffi (22cm)">Tarta Toffi (22cm) - $27.000</option>
                 <option value="32000" data-name="Tarta Toffi (28cm)">Tarta Toffi (28cm) - $32.000</option>
                 <option value="27000" data-name="Lemon Pie / Orange Pie (22cm)">Lemon Pie / Orange Pie (22cm) - $27.000</option>
@@ -435,8 +379,8 @@
                 <option value="32000" data-name="Pasta Frola (28cm)">Pasta Frola (28cm) - $32.000</option>
                 <option value="27000" data-name="Tarta de Ricota (22cm)">Tarta de Ricota (22cm) - $27.000</option>
                 <option value="32000" data-name="Tarta de Ricota (28cm)">Tarta de Ricota (28cm) - $32.000</option>
-                <option value="27000" data-name="Ricota con DDL / Frambuesas / Pasas (22cm)">Ricota Especial (22cm) - $27.000</option>
-                <option value="32000" data-name="Ricota con DDL / Frambuesas / Pasas (28cm)">Ricota Especial (28cm) - $32.000</option>
+                <option value="27000" data-name="Ricota Especial (22cm)">Ricota Especial (22cm) - $27.000</option>
+                <option value="32000" data-name="Ricota Especial (28cm)">Ricota Especial (28cm) - $32.000</option>
                 <option value="27000" data-name="Crema Tipo Galesa (22cm)">Crema Tipo Galesa (22cm) - $27.000</option>
                 <option value="32000" data-name="Crema Tipo Galesa (28cm)">Crema Tipo Galesa (28cm) - $32.000</option>
             </select>
@@ -444,7 +388,7 @@
         </div>
     </div>
 
-    <!-- 🍰 CATEGORÍA: COMBOS DULCES -->
+    <!-- COMBOS DULCES -->
     <div id="cat-combos-dulces" class="category-section">
         <div class="card">
             <h2>Combos Dulces para Eventos</h2>
@@ -467,7 +411,7 @@
             <div class="item-row">
                 <div class="item-info">
                     <h4>Combo Dulce 3</h4>
-                    <p>• 1 Docena Cupcakes • 1 Docena Cookies • 1 Docena Cakepops (o 2 docenas Donitas)</p>
+                    <p>• 1 Docena Cupcakes • 1 Docena Cookies • 1 Docena Cakepops</p>
                     <div class="item-price">$66.600</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Combo Dulce 3', 66600)">+ Agregar</button>
@@ -483,14 +427,14 @@
         </div>
     </div>
 
-    <!-- 🥐 CATEGORÍA: COMBOS SALADOS -->
+    <!-- COMBOS SALADOS -->
     <div id="cat-combos-salados" class="category-section">
         <div class="card">
             <h2>Combos Salados para Eventos</h2>
             <div class="item-row">
                 <div class="item-info">
                     <h4>Combo Salado 1</h4>
-                    <p>• 1 Docena Chips J&Q • 1 Docena Empanadas (carne o pollo, horno/fritas) • 1 Docena Panes árabes de pollo</p>
+                    <p>• 1 Docena Chips J&Q • 1 Docena Empanadas • 1 Docena Panes árabes de pollo</p>
                     <div class="item-price">$58.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Combo Salado 1', 58000)">+ Agregar</button>
@@ -498,7 +442,7 @@
             <div class="item-row">
                 <div class="item-info">
                     <h4>Combo Salado 2</h4>
-                    <p>• 1 Docena Chips J&Q • 1 Docena Pizzetas • 1 Docena Empanadas (carne o pollo, horno/fritas)</p>
+                    <p>• 1 Docena Chips J&Q • 1 Docena Pizzetas • 1 Docena Empanadas</p>
                     <div class="item-price">$53.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Combo Salado 2', 53000)">+ Agregar</button>
@@ -506,7 +450,7 @@
             <div class="item-row">
                 <div class="item-info">
                     <h4>Combo Salado 3</h4>
-                    <p>• 2 Docenas Chips J&Q • 1 Docena Chips Salame y Queso • 1 Docena Panes árabes de pollo • 2 Docenas Pizzetas</p>
+                    <p>• 2 Docenas Chips J&Q • 1 Docena Chips Salame y Queso • 1 Docena Panes árabes • 2 Docenas Pizzetas</p>
                     <div class="item-price">$112.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Combo Salado 3', 112000)">+ Agregar</button>
@@ -514,7 +458,7 @@
         </div>
     </div>
 
-    <!-- 🧁 CATEGORÍA: INDIVIDUALES Y KILO -->
+    <!-- INDIVIDUALES -->
     <div id="cat-individuales" class="category-section">
         <div class="card">
             <h2>Productos Individuales & Por Kilo</h2>
@@ -525,4 +469,35 @@
                     <div class="item-price">$20.000</div>
                 </div>
                 <button class="btn-add" onclick="addItem('Docena Alfajores de Maicena', 20000)">+ Agregar</button>
-            </d
+            </div>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Alfajores Marplatenses (Docena)</h4>
+                    <p>Cobertura chocolate blanco o negro</p>
+                    <div class="item-price">$25.000</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Docena Alfajores Marplatenses', 25000)">+ Agregar</button>
+            </div>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Budín Casero (1 Kg)</h4>
+                    <p>Sabor a elección</p>
+                    <div class="item-price">$15.000</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Budín Casero (1kg)', 15000)">+ Agregar</button>
+            </div>
+            <div class="item-row">
+                <div class="item-info">
+                    <h4>Torta Personalizada (por Kg)</h4>
+                    <p>Decoración en Fondant o Buttercream</p>
+                    <div class="item-price">$28.000 / kg</div>
+                </div>
+                <button class="btn-add" onclick="addItem('Torta por Kilo (1kg base)', 28000)">+ Agregar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ENTREGA Y FECHA -->
+    <div class="card">
+        <h2>Detalles de la Entrega</h2>
+        <label for="date">Fecha Requerida (Mínimo 48hs 
